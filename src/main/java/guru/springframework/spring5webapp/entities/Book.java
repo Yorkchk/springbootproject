@@ -2,6 +2,7 @@ package guru.springframework.spring5webapp.entities;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,6 +14,9 @@ public class Book {
 
     private String title;
     private String isbn;
+
+    @ManyToOne()
+    private Publisher publisher;
 
 
     public Book(){}
@@ -29,6 +33,14 @@ public class Book {
     public void setId(Long id){
         this.id = id;
     }
+    public Publisher getPublisher(){
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher){
+        this.publisher = publisher;
+    }
+
     public String getTitle(){
         return title;
     }
@@ -42,6 +54,12 @@ public class Book {
 
     public void setIsbn(String isbn){
         this.isbn = isbn;
+    }
+    public List<Author> getAuthors(){
+        return authors;
+    }
+    public void setAuthors(List<Author> authors){
+        this.authors = authors;
     }
 
 
@@ -59,10 +77,7 @@ public class Book {
         return id != null ? id.equals(obj.id) : obj.id == null;
     }
 
-    @Override
-    public int hashCode(){
-        return id != null ? id.hashCode() : 0;
-    }
+
 
     @Override
     public String toString(){
@@ -75,5 +90,5 @@ public class Book {
     @ManyToMany
     @JoinTable(name="author_book", joinColumns = @JoinColumn(name="book_id"),
                 inverseJoinColumns = @JoinColumn(name = "author_id"))
-    private List<Author> authors;
+    private List<Author> authors = new ArrayList<>();
 }

@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -47,6 +48,12 @@ public class Author {
     public void setLastName(String lastName){
         this.lastName = lastName;
     }
+    public List<Book> getBooks(){
+        return books;
+    }
+    public void setBooks(List<Book> books){
+        this.books = books;
+    }
 
     @Override
     public boolean equals(Object o){
@@ -62,10 +69,6 @@ public class Author {
         return id != null ? id.equals(obj.id) : obj.id == null;
     }
 
-    @Override
-    public int hashCode(){
-        return id != null ? id.hashCode() : 0;
-    }
 
     @Override
     public String toString(){
@@ -76,5 +79,5 @@ public class Author {
 
 
     @ManyToMany(mappedBy = "authors")
-    private List<Book> books;
+    private List<Book> books = new ArrayList<>();
 }
