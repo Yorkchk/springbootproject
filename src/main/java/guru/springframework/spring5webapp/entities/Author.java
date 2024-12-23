@@ -48,6 +48,33 @@ public class Author {
         this.lastName = lastName;
     }
 
-    @ManyToMany
+    @Override
+    public boolean equals(Object o){
+        if(o == this){
+            return true;
+        }
+        else if(o == null || o.getClass() != getClass()){
+            return false;
+        }
+
+        Author obj = (Author) o;
+
+        return id != null ? id.equals(obj.id) : obj.id == null;
+    }
+
+    @Override
+    public int hashCode(){
+        return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
+    public String toString(){
+        return "id : " + id + "\n"
+                + "title " + firstName + "\n"
+                + "isbn " + lastName;
+    }
+
+
+    @ManyToMany(mappedBy = "authors")
     private List<Book> books;
 }
